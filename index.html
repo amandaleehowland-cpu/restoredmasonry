@@ -188,7 +188,11 @@
               </sc-if>
 
               <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-              <form onSubmit="{{ onSubmit }}" style="display:grid; gap:22px; text-align:left;">
+              <form action="https://formsubmit.co/projects@restoredmasonry.com" method="POST" enctype="multipart/form-data" onSubmit="{{ onSubmit }}" style="display:grid; gap:22px; text-align:left;">
+                <input type="hidden" name="_subject" value="New consultation request — restoredmasonry.com">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://restoredmasonry.com/?sent=1#contact">
                 <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:22px;">
                   <div style="display:grid; gap:7px;">
                     <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">FULL NAME</label>
@@ -223,7 +227,7 @@
                 <div onDrop="{{ onDrop }}" onDragOver="{{ onDragOver }}" style="border:1px dashed #8a6a3a; background:#fffdf8; padding:24px; text-align:center;">
                   <div style="font-family:'EB Garamond',serif; font-style:italic; font-size:14px; color:#7a674c;">Drag photos here, or</div>
                   <label for="fileUp" style="display:inline-block; margin-top:12px; font-family:'Marcellus SC',serif; font-size:13px; letter-spacing:.1em; color:#faf3ea; background:#4a3a26; padding:11px 24px; cursor:pointer;">CHOOSE FILES</label>
-                  <input id="fileUp" type="file" accept="image/*" multiple="" onChange="{{ onPick }}" style="display:none;">
+                  <input id="fileUp" name="attachment" type="file" accept="image/*" multiple="" onChange="{{ onPick }}" style="display:none;">
                   <sc-if value="{{ hasFiles }}" hint-placeholder-val="{{ false }}">
                     <div style="margin-top:16px; text-align:left; font-family:'EB Garamond',serif; font-size:14px; color:#4a3a26; max-width:440px; margin-left:auto; margin-right:auto;">
                       <sc-for list="{{ files }}" as="f" hint-placeholder-count="0">
@@ -258,10 +262,16 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  ACCESS_KEY = "69fe16dc-6dc3-4924-a285-feb89ec8d7d1";
-  MAX_BYTES = 5 * 1024 * 1024; // Web3Forms free-tier attachment cap (~5MB total)
+  MAX_BYTES = 20 * 1024 * 1024; // safety guard on total attachment size
 
   state = { files: [], raw: [], sent: false, sending: false, error: "", zoom: null };
+
+  componentDidMount() {
+    try {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get("sent") === "1") this.setState({ sent: true });
+    } catch (e) {}
+  }
 
   fmt(n) {
     if (n < 1024) return n + " B";
@@ -302,32 +312,25 @@ class Component extends DCLogic {
     this.setState({ raw, files, error: "" });
   }
 
-  async submit(e) {
-    e.preventDefault();
-    if (this.state.sending) return;
-    const form = e.target;
+  submit(e) {
+    // Load the compressed photos (incl. drag-dropped) into the real file input,
+    // then let the form POST natively to FormSubmit.
     const total = this.state.raw.reduce((n, f) => n + f.size, 0);
     if (total > this.MAX_BYTES) {
-      this.setState({ error: "Those photos total " + this.fmt(total) + ", over the 5 MB limit. Please remove a few or send smaller images — or email them directly to projects@restoredmasonry.com." });
+      e.preventDefault();
+      this.setState({ error: "Those photos total " + this.fmt(total) + ", which is too large. Please remove a few — or email them directly to projects@restoredmasonry.com." });
       return;
     }
-    this.setState({ sending: true, error: "" });
     try {
-      const data = new FormData(form);
-      data.append("access_key", this.ACCESS_KEY);
-      data.append("subject", "New consultation request — restoredmasonry.com");
-      data.append("from_name", "Restored Masonry website");
-      this.state.raw.forEach((f, i) => data.append("photo_" + (i + 1), f, f.name));
-      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: data });
-      const json = await res.json();
-      if (json.success) {
-        this.setState({ sent: true, sending: false });
-      } else {
-        this.setState({ sending: false, error: (json.message || "Something went wrong.") + " Please try again, or email projects@restoredmasonry.com." });
+      const input = document.getElementById("fileUp");
+      if (input && this.state.raw.length) {
+        const dt = new DataTransfer();
+        this.state.raw.forEach(f => dt.items.add(f));
+        input.files = dt.files;
       }
-    } catch (err) {
-      this.setState({ sending: false, error: "Couldn't send — please check your connection and try again, or email projects@restoredmasonry.com." });
-    }
+    } catch (err) {}
+    this.setState({ sending: true, error: "" });
+    // no preventDefault — the browser submits the form to FormSubmit
   }
 
   renderVals() {
