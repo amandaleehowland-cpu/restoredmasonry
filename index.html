@@ -30,6 +30,9 @@
     .services-grid { grid-template-columns: 1fr !important; gap: 26px !important; }
     .form-row { grid-template-columns: 1fr !important; }
     .tape-corner { display: none !important; }
+    .zoom-card { aspect-ratio: auto !important; width: 94vw !important; min-height: 62vw; }
+    .zoom-back-inner { padding: 0 22px !important; }
+    .zoom-back-inner div[style*="font-size:15px"] { font-size: 12px !important; letter-spacing: .12em !important; }
   }
 </style>
 </helmet>
@@ -85,7 +88,7 @@
   <sc-if value="{{ isZoomed }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeZoom }}" style="position:fixed; inset:0; z-index:50; background:rgba(30,22,12,.72); display:flex; align-items:center; justify-content:center; padding:32px; cursor:zoom-out;">
       <sc-if value="{{ zoomFront }}" hint-placeholder-val="{{ true }}">
-        <div class="paper-noise" style="position:relative; width:620px; max-width:94vw; aspect-ratio:7/4; background:#faf3ea; border-radius:6px; box-shadow:0 50px 90px -20px rgba(0,0,0,.7);">
+        <div class="paper-noise zoom-card" style="position:relative; width:620px; max-width:94vw; aspect-ratio:7/4; background:#faf3ea; border-radius:6px; box-shadow:0 50px 90px -20px rgba(0,0,0,.7);">
           <div style="position:absolute; inset:20px; border:1px solid #cbb890;"></div>
           <div style="position:absolute; inset:24px; border:1px solid #cbb890;"></div>
           <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
@@ -94,10 +97,10 @@
         </div>
       </sc-if>
       <sc-if value="{{ zoomBack }}" hint-placeholder-val="{{ false }}">
-        <div class="paper-noise" style="position:relative; width:620px; max-width:94vw; aspect-ratio:7/4; background:#faf3ea; border-radius:6px; box-shadow:0 50px 90px -20px rgba(0,0,0,.7);">
+        <div class="paper-noise zoom-card" style="position:relative; width:620px; max-width:94vw; aspect-ratio:7/4; background:#faf3ea; border-radius:6px; box-shadow:0 50px 90px -20px rgba(0,0,0,.7);">
           <div style="position:absolute; inset:20px; border:1px solid #cbb890;"></div>
           <div style="position:absolute; inset:24px; border:1px solid #cbb890;"></div>
-          <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 64px; color:#4a3a26;">
+          <div class="zoom-back-inner" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 64px; color:#4a3a26;">
             <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; color:#8a6a3a;"><span style="height:1px; width:66px; background:#cbb890;"></span><span style="font-size:12px;">◆</span><span style="height:1px; width:66px; background:#cbb890;"></span></div>
             <div style="font-family:'Marcellus SC',serif; font-size:15px; letter-spacing:.2em; line-height:2.1; color:#8a6a3a;">LIME MORTAR REPOINTING · STONE REPAIR<br>BRICK RESTORATION · HERITAGE CONSERVATION</div>
             <div style="margin-top:22px; font-size:18px; line-height:1.9; color:#4a3a26;">projects@restoredmasonry.com<br><span style="font-style:italic; color:#7a674c;">Traditional Ontario Craftsmanship</span></div>
