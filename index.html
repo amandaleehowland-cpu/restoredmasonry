@@ -18,6 +18,18 @@
   a { color: #8a6a3a; }
   a:hover { color: #6d5029; }
   .paper-noise::after { content:""; position:absolute; inset:0; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E"); mix-blend-mode:multiply; opacity:.06; }
+  @media (max-width: 680px) {
+    .card-stage { width: 100% !important; height: auto !important; display: flex !important; flex-direction: column; align-items: center; gap: 22px; }
+    .card-back, .card-front { position: static !important; width: 100% !important; max-width: 360px !important; height: auto !important; aspect-ratio: 7 / 4; transform: rotate(0deg) !important; }
+    .card-back { order: 2; }
+    .card-front { order: 1; }
+    .card-front img { height: 74% !important; width: auto !important; }
+    .flier-paper { padding: 40px 24px 44px !important; }
+    .flier-title { font-size: 42px !important; }
+    .services-grid { grid-template-columns: 1fr !important; gap: 26px !important; }
+    .form-row { grid-template-columns: 1fr !important; }
+    .tape-corner { display: none !important; }
+  }
 </style>
 </helmet>
 
@@ -44,10 +56,10 @@
     <a href="#flier" style="margin-top:40px; text-decoration:none; text-align:center; font-family:'Marcellus SC',serif; font-size:11px; letter-spacing:.28em; color:#6d5029;">
       
       
-    </a><div style="position: relative; width: 810px; max-width: 96vw; height: 450px">
+    </a><div class="card-stage" style="position: relative; width: 810px; max-width: 96vw; height: 450px">
 
       <!-- BACK of card (peeking, rotated) -->
-      <div class="paper-noise" onClick="{{ openBack }}" style="position:absolute; top:70px; left:0; width:406px; height:232px; transform:rotate(4.5deg); background:#faf3ea; border-radius:4px; box-shadow:0 30px 46px -20px rgba(0,0,0,.6); overflow:hidden; cursor:zoom-in;">
+      <div class="paper-noise card-back" onClick="{{ openBack }}" style="position:absolute; top:70px; left:0; width:406px; height:232px; transform:rotate(4.5deg); background:#faf3ea; border-radius:4px; box-shadow:0 30px 46px -20px rgba(0,0,0,.6); overflow:hidden; cursor:zoom-in;">
         <div style="position:absolute; inset:13px; border:1px solid #cbb890;"></div>
         <div style="position:absolute; inset:16px; border:1px solid #cbb890;"></div>
         <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 46px; color:#4a3a26;">
@@ -58,7 +70,7 @@
       </div>
 
       <!-- FRONT of card (real logo) -->
-      <div class="paper-noise" onClick="{{ openFront }}" style="position:absolute; top:0; right:0; width:436px; max-width:92vw; height:250px; transform:rotate(-2.4deg); background:#faf3ea; border-radius:4px; box-shadow:0 44px 64px -22px rgba(0,0,0,.72), 0 6px 14px rgba(0,0,0,.3); overflow:hidden; cursor:zoom-in;">
+      <div class="paper-noise card-front" onClick="{{ openFront }}" style="position:absolute; top:0; right:0; width:436px; max-width:92vw; height:250px; transform:rotate(-2.4deg); background:#faf3ea; border-radius:4px; box-shadow:0 44px 64px -22px rgba(0,0,0,.72), 0 6px 14px rgba(0,0,0,.3); overflow:hidden; cursor:zoom-in;">
         <div style="position:absolute; inset:14px; border:1px solid #cbb890;"></div>
         <div style="position:absolute; inset:17px; border:1px solid #cbb890;"></div>
         <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
@@ -99,10 +111,10 @@
 
     <div style="position:relative; width:720px; max-width:94vw; margin:0 auto;">
       <!-- tape corners -->
-      <div style="position:absolute; top:-14px; left:60px; width:150px; height:42px; transform:rotate(-4deg); background:rgba(214,180,120,.5); border:1px solid rgba(120,90,50,.25); box-shadow:0 3px 8px rgba(0,0,0,.3); z-index:3;"></div>
-      <div style="position:absolute; top:-14px; right:60px; width:150px; height:42px; transform:rotate(3.5deg); background:rgba(214,180,120,.5); border:1px solid rgba(120,90,50,.25); box-shadow:0 3px 8px rgba(0,0,0,.3); z-index:3;"></div>
+      <div class="tape-corner" style="position:absolute; top:-14px; left:60px; width:150px; height:42px; transform:rotate(-4deg); background:rgba(214,180,120,.5); border:1px solid rgba(120,90,50,.25); box-shadow:0 3px 8px rgba(0,0,0,.3); z-index:3;"></div>
+      <div class="tape-corner" style="position:absolute; top:-14px; right:60px; width:150px; height:42px; transform:rotate(3.5deg); background:rgba(214,180,120,.5); border:1px solid rgba(120,90,50,.25); box-shadow:0 3px 8px rgba(0,0,0,.3); z-index:3;"></div>
 
-      <div class="paper-noise" style="position:relative; background:#faf3ea; color:#3a2c1b; padding:72px 64px 74px; box-shadow:0 60px 90px -30px rgba(0,0,0,.75);">
+      <div class="paper-noise flier-paper" style="position:relative; background:#faf3ea; color:#3a2c1b; padding:72px 64px 74px; box-shadow:0 60px 90px -30px rgba(0,0,0,.75);">
         <div style="position:absolute; inset:18px; border:1px solid #cbb890; pointer-events:none;"></div>
         <div style="position:absolute; inset:23px; border:1px solid #cbb890; pointer-events:none;"></div>
 
@@ -111,7 +123,7 @@
           <div style="text-align:center;">
             <div style="font-family:'Marcellus SC',serif; font-size:13px; letter-spacing:.34em; color:#8a6a3a;">SERVING THE OTTAWA-HAWKSBURY CORRIDOR</div>
             <div style="display:flex; align-items:center; gap:14px; justify-content:center; margin:16px 0;"><span style="height:1px; width:70px; background:#cbb890;"></span><span style="color:#8a6a3a; font-size:12px;">◆</span><span style="height:1px; width:70px; background:#cbb890;"></span></div>
-            <h1 style="font-family:'Marcellus SC',serif; font-weight:400; font-size:58px; line-height:1.06; letter-spacing:.04em; margin:4px 0; color:#3a2c1b;">Restored<br>Masonry</h1>
+            <h1 class="flier-title" style="font-family:'Marcellus SC',serif; font-weight:400; font-size:58px; line-height:1.06; letter-spacing:.04em; margin:4px 0; color:#3a2c1b;">Restored<br>Masonry</h1>
             
             <p style="font-family:'EB Garamond',serif; font-style:italic; font-size:19px; line-height:1.62; margin:22px auto 0; max-width:520px; color:#5a4a34;">Heritage masonry conservation for pre-1940 buildings across the Greater Ottawa area and Prescott-Russell. Every repair tailored to its building, held to compatibility, documentation, and craft.</p>
           </div>
@@ -124,7 +136,7 @@
 
           <!-- SERVICES -->
           <div style="text-align:center; margin:44px 0 24px; font-family:'Marcellus SC',serif; font-size:16px; letter-spacing:.24em; color:#8a6a3a;">SERVICES</div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px 46px;">
+          <div class="services-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:32px 46px;">
             <div style="text-align:center;">
               <div style="font-family:'Marcellus',serif; font-size:24px; color:#3a2c1b;">Lime Mortar Repointing</div>
               <p style="font-family:'EB Garamond',serif; font-size:15px; line-height:1.6; color:#5a4a34; margin:8px 0 0;">Traditional lime mortars matched to the original in strength, colour, and joint profile.</p>
@@ -177,31 +189,31 @@
 
               <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
               <form onSubmit="{{ onSubmit }}" style="display:grid; gap:22px; text-align:left;">
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px;">
+                <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:22px;">
                   <div style="display:grid; gap:7px;">
                     <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">FULL NAME</label>
-                    <input required="" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
+                    <input name="name" required="" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
                   </div>
                   <div style="display:grid; gap:7px;">
                     <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">EMAIL ADDRESS</label>
-                    <input type="email" required="" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
+                    <input name="email" type="email" required="" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
                   </div>
                 </div>
 
                 <div style="display:grid; gap:7px;">
                   <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">PHONE NUMBER <span style="font-family:'EB Garamond',serif; font-style:italic; letter-spacing:0; text-transform:none; color:#a08a68;">(optional)</span></label>
-                  <input type="tel" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
+                  <input name="phone" type="tel" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
                 </div>
 
                 <div style="display:grid; gap:7px;">
                   <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">PROPERTY ADDRESS <span style="font-family:'EB Garamond',serif; font-style:italic; letter-spacing:0; text-transform:none; color:#a08a68;">(optional)</span></label>
-                  <input style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
+                  <input name="property_address" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
                   <div style="font-family: 'EB Garamond',serif; font-style: normal; font-size: 13.5px; line-height: 1.5; color: #7a674c">If you're comfortable sharing it, this helps us understand the age and style of construction ahead of time, and cost of getting materials to you.</div>
                 </div>
 
                 <div style="display:grid; gap:7px;">
                   <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">TELL US ABOUT YOUR PROJECT</label>
-                  <textarea rows="5" required="" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b; resize:vertical;"></textarea>
+                  <textarea name="message" rows="5" required="" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b; resize:vertical;"></textarea>
                   <div style="font-family: 'EB Garamond',serif; font-style: normal; font-size: 13.5px; line-height: 1.5; color: #7a674c">Describe the masonry work needed, such as repointing, stone repair, chimney restoration, or foundation work. Include the age of the structure if known.</div>
                 </div>
 
@@ -223,7 +235,10 @@
                 </div>
                 </div>
 
-                <button type="submit" style="font-family:'Marcellus',serif; font-size:20px; color:#faf3ea; background:#4a3a26; border:none; padding:16px; cursor:pointer; letter-spacing:.02em;">Request Consultation</button>
+                <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-family:'EB Garamond',serif; font-size:14.5px; color:#8a3a2a; background:#f6e6df; border:1px solid #d8b3a6; padding:12px 14px;">{{ errorMsg }}</div>
+                </sc-if>
+                <button type="submit" disabled="{{ sending }}" style="font-family:'Marcellus',serif; font-size:20px; color:#faf3ea; background:#4a3a26; border:none; padding:16px; cursor:pointer; letter-spacing:.02em; opacity:{{ btnOpacity }};">{{ btnLabel }}</button>
               </form>
               </sc-if>
             </div>
@@ -243,18 +258,76 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { files: [], sent: false, zoom: null };
+  ACCESS_KEY = "69fe16dc-6dc3-4924-a285-feb89ec8d7d1";
+  MAX_BYTES = 5 * 1024 * 1024; // Web3Forms free-tier attachment cap (~5MB total)
+
+  state = { files: [], raw: [], sent: false, sending: false, error: "", zoom: null };
 
   fmt(n) {
     if (n < 1024) return n + " B";
     if (n < 1048576) return (n / 1024).toFixed(0) + " KB";
     return (n / 1048576).toFixed(1) + " MB";
   }
-  add(list) {
+  MAX_DIM = 1600;      // longest edge after downscale
+  JPEG_QUALITY = 0.8;
+
+  compress(file) {
+    return new Promise((resolve) => {
+      if (!file.type || !file.type.startsWith("image/")) { resolve(file); return; }
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        const scale = Math.min(1, this.MAX_DIM / Math.max(img.width, img.height));
+        const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+        const c = document.createElement("canvas");
+        c.width = w; c.height = h;
+        c.getContext("2d").drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        c.toBlob((blob) => {
+          if (!blob || blob.size >= file.size) { resolve(file); return; } // keep original if no gain
+          const name = file.name.replace(/\.(png|webp|heic|heif|tiff?)$/i, ".jpg");
+          resolve(new File([blob], name, { type: "image/jpeg" }));
+        }, "image/jpeg", this.JPEG_QUALITY);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+      img.src = url;
+    });
+  }
+
+  async add(list) {
     if (!list || !list.length) return;
-    const arr = [...this.state.files];
-    for (const f of list) arr.push({ name: f.name, sizeLabel: this.fmt(f.size) });
-    this.setState({ files: arr });
+    const compressed = await Promise.all(Array.from(list).map(f => this.compress(f)));
+    const raw = [...this.state.raw, ...compressed];
+    const files = raw.map(f => ({ name: f.name, sizeLabel: this.fmt(f.size) }));
+    this.setState({ raw, files, error: "" });
+  }
+
+  async submit(e) {
+    e.preventDefault();
+    if (this.state.sending) return;
+    const form = e.target;
+    const total = this.state.raw.reduce((n, f) => n + f.size, 0);
+    if (total > this.MAX_BYTES) {
+      this.setState({ error: "Those photos total " + this.fmt(total) + ", over the 5 MB limit. Please remove a few or send smaller images — or email them directly to projects@restoredmasonry.com." });
+      return;
+    }
+    this.setState({ sending: true, error: "" });
+    try {
+      const data = new FormData(form);
+      data.append("access_key", this.ACCESS_KEY);
+      data.append("subject", "New consultation request — restoredmasonry.com");
+      data.append("from_name", "Restored Masonry website");
+      this.state.raw.forEach((f, i) => data.append("photo_" + (i + 1), f, f.name));
+      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: data });
+      const json = await res.json();
+      if (json.success) {
+        this.setState({ sent: true, sending: false });
+      } else {
+        this.setState({ sending: false, error: (json.message || "Something went wrong.") + " Please try again, or email projects@restoredmasonry.com." });
+      }
+    } catch (err) {
+      this.setState({ sending: false, error: "Couldn't send — please check your connection and try again, or email projects@restoredmasonry.com." });
+    }
   }
 
   renderVals() {
@@ -263,11 +336,16 @@ class Component extends DCLogic {
       hasFiles: this.state.files.length > 0,
       sent: this.state.sent,
       notSent: !this.state.sent,
+      sending: this.state.sending,
+      hasError: !!this.state.error,
+      errorMsg: this.state.error,
+      btnLabel: this.state.sending ? "Sending…" : "Request Consultation",
+      btnOpacity: this.state.sending ? 0.6 : 1,
       onPick: (e) => this.add(e.target.files),
       onDrop: (e) => { e.preventDefault(); this.add(e.dataTransfer.files); },
       onDragOver: (e) => e.preventDefault(),
-      clear: () => this.setState({ files: [] }),
-      onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      clear: () => this.setState({ files: [], raw: [] }),
+      onSubmit: (e) => this.submit(e),
       zoom: this.state.zoom,
       isZoomed: this.state.zoom !== null,
       zoomFront: this.state.zoom === "front",
