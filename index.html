@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;family=Marcellus+SC&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -278,59 +279,75 @@ class Component extends DCLogic {
     if (n < 1048576) return (n / 1024).toFixed(0) + " KB";
     return (n / 1048576).toFixed(1) + " MB";
   }
-  MAX_DIM = 1600;      // longest edge after downscale
-  JPEG_QUALITY = 0.8;
-
-  compress(file) {
-    return new Promise((resolve) => {
-      if (!file.type || !file.type.startsWith("image/")) { resolve(file); return; }
-      const url = URL.createObjectURL(file);
-      const img = new Image();
-      img.onload = () => {
-        const scale = Math.min(1, this.MAX_DIM / Math.max(img.width, img.height));
-        const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
-        const c = document.createElement("canvas");
-        c.width = w; c.height = h;
-        c.getContext("2d").drawImage(img, 0, 0, w, h);
-        URL.revokeObjectURL(url);
-        c.toBlob((blob) => {
-          if (!blob || blob.size >= file.size) { resolve(file); return; } // keep original if no gain
-          const name = file.name.replace(/\.(png|webp|heic|heif|tiff?)$/i, ".jpg");
-          resolve(new File([blob], name, { type: "image/jpeg" }));
-        }, "image/jpeg", this.JPEG_QUALITY);
-      };
-      img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
-      img.src = url;
-    });
-  }
-
-  async add(list) {
+  add(list) {
     if (!list || !list.length) return;
-    const compressed = await Promise.all(Array.from(list).map(f => this.compress(f)));
-    const raw = [...this.state.raw, ...compressed];
+    const raw = [...this.state.raw, ...Array.from(list)];
     const files = raw.map(f => ({ name: f.name, sizeLabel: this.fmt(f.size) }));
     this.setState({ raw, files, error: "" });
   }
 
-  submit(e) {
-    // Load the compressed photos (incl. drag-dropped) into the real file input,
-    // then let the form POST natively to FormSubmit.
-    const total = this.state.raw.reduce((n, f) => n + f.size, 0);
-    if (total > this.MAX_BYTES) {
-      e.preventDefault();
-      this.setState({ error: "Those photos total " + this.fmt(total) + ", which is too large. Please remove a few — or email them directly to projects@restoredmasonry.com." });
-      return;
+  readImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => resolve({ dataURL: reader.result, w: img.naturalWidth, h: img.naturalHeight });
+        img.onerror = reject;
+        img.src = reader.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async buildPdf(files) {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ unit: "pt", format: "a4", compress: true });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const margin = 28;
+    const maxW = pageW - margin * 2;
+    const maxH = pageH - margin * 2;
+    let first = true;
+    for (const file of files) {
+      let im;
+      try { im = await this.readImage(file); } catch (e) { continue; }
+      const scale = Math.min(maxW / im.w, maxH / im.h);
+      const w = im.w * scale, h = im.h * scale;
+      const x = (pageW - w) / 2, y = (pageH - h) / 2;
+      if (!first) pdf.addPage();
+      first = false;
+      const fmt = /image\/png/i.test(file.type) ? "PNG" : "JPEG";
+      pdf.addImage(im.dataURL, fmt, x, y, w, h);
     }
+    return pdf.output("blob");
+  }
+
+  async submit(e) {
+    e.preventDefault();
+    if (this.state.sending) return;
+    const form = e.target;
+    const input = document.getElementById("fileUp");
+    this.setState({ sending: true, error: "" });
     try {
-      const input = document.getElementById("fileUp");
-      if (input && this.state.raw.length) {
+      if (this.state.raw.length && window.jspdf) {
+        const blob = await this.buildPdf(this.state.raw);
+        if (blob.size > this.MAX_BYTES) {
+          this.setState({ sending: false, error: "Those photos are too large to send (" + this.fmt(blob.size) + "). Please remove a few — or email them directly to projects@restoredmasonry.com." });
+          return;
+        }
+        const pdf = new File([blob], "project-photos.pdf", { type: "application/pdf" });
         const dt = new DataTransfer();
-        this.state.raw.forEach(f => dt.items.add(f));
+        dt.items.add(pdf);
+        if (input) input.files = dt.files;
+      } else if (this.state.raw.length && input) {
+        // jsPDF unavailable — fall back to the first photo
+        const dt = new DataTransfer();
+        dt.items.add(this.state.raw[0]);
         input.files = dt.files;
       }
     } catch (err) {}
-    this.setState({ sending: true, error: "" });
-    // no preventDefault — the browser submits the form to FormSubmit
+    form.submit(); // native POST to FormSubmit (bypasses this handler)
   }
 
   renderVals() {
