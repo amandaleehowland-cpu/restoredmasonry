@@ -33,6 +33,7 @@
     .zoom-card { aspect-ratio: auto !important; width: 94vw !important; min-height: 62vw; }
     .zoom-back-inner { padding: 0 22px !important; }
     .zoom-back-inner div[style*="font-size:15px"] { font-size: 12px !important; letter-spacing: .12em !important; }
+    .card-back, .card-front { cursor: default !important; }
   }
 </style>
 </helmet>
@@ -403,8 +404,8 @@ class Component extends DCLogic {
       isZoomed: this.state.zoom !== null,
       zoomFront: this.state.zoom === "front",
       zoomBack: this.state.zoom === "back",
-      openFront: () => this.setState({ zoom: "front" }),
-      openBack: () => this.setState({ zoom: "back" }),
+      openFront: () => { if (window.innerWidth > 680) this.setState({ zoom: "front" }); },
+      openBack: () => { if (window.innerWidth > 680) this.setState({ zoom: "back" }); },
       closeZoom: () => this.setState({ zoom: null }),
     };
   }
