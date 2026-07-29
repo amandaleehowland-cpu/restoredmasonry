@@ -25,9 +25,11 @@
     .card-back { order: 2; }
     .card-front { order: 1; }
     .card-front img { height: 74% !important; width: auto !important; }
-    .card-back div[style*="font-size:10px"] { font-size: 11px !important; letter-spacing: .06em !important; white-space: nowrap !important; }
-    .card-back div[style*="font-size:12.5px"] { font-size: 15px !important; }
-    .card-back div[style*="margin-bottom:12px"] { margin-bottom: 22px !important; }
+    .card-back { position: static !important; width: 100% !important; max-width: 440px !important; height: auto !important; aspect-ratio: 3 / 2; transform: rotate(0deg) !important; cursor: default !important; }
+    .card-back .bk-inner { padding: 0 16px !important; }
+    .card-back .bk-svc { font-size: 12px !important; letter-spacing: .02em !important; white-space: nowrap !important; }
+    .card-back .bk-contact { font-size: 15px !important; }
+    .card-back .bk-divider { margin-bottom: 22px !important; }
     .flier-paper { padding: 40px 24px 44px !important; }
     .flier-title { font-size: 42px !important; }
     .services-grid { grid-template-columns: 1fr !important; gap: 26px !important; }
@@ -70,10 +72,10 @@
       <div class="paper-noise card-back" onClick="{{ openBack }}" style="position:absolute; top:70px; left:0; width:406px; height:232px; transform:rotate(4.5deg); background:#faf3ea; border-radius:4px; box-shadow:0 30px 46px -20px rgba(0,0,0,.6); overflow:hidden; cursor:zoom-in;">
         <div style="position:absolute; inset:13px; border:1px solid #cbb890;"></div>
         <div style="position:absolute; inset:16px; border:1px solid #cbb890;"></div>
-        <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 46px; color:#4a3a26;">
-          <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px; color:#8a6a3a;"><span style="height:1px; width:46px; background:#cbb890;"></span><span style="font-size:9px;">◆</span><span style="height:1px; width:46px; background:#cbb890;"></span></div>
-          <div style="font-family:'Marcellus SC',serif; font-size:10px; letter-spacing:.18em; line-height:2; color:#8a6a3a;">LIME MORTAR REPOINTING · STONE REPAIR<br>BRICK RESTORATION · HERITAGE CONSERVATION</div>
-          <div style="margin-top:14px; font-size:12.5px; line-height:1.8; color:#4a3a26;"><a href="#contact" style="color:#4a3a26; text-decoration:none;">projects@restoredmasonry.com</a><br><span style="font-style:italic; color:#7a674c;">Traditional Ontario Craftsmanship</span></div>
+        <div class="bk-inner" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 46px; color:#4a3a26;">
+          <div class="bk-divider" style="display:flex; align-items:center; gap:12px; margin-bottom:12px; color:#8a6a3a;"><span style="height:1px; width:46px; background:#cbb890;"></span><span style="font-size:9px;">◆</span><span style="height:1px; width:46px; background:#cbb890;"></span></div>
+          <div class="bk-svc" style="font-family:'Marcellus SC',serif; font-size:10px; letter-spacing:.18em; line-height:2; color:#8a6a3a;">LIME MORTAR REPOINTING · STONE REPAIR<br>BRICK RESTORATION · HERITAGE CONSERVATION</div>
+          <div class="bk-contact" style="margin-top:14px; font-size:12.5px; line-height:1.8; color:#4a3a26;"><a href="#contact" style="color:#4a3a26; text-decoration:none;">projects@restoredmasonry.com</a><br><span style="font-style:italic; color:#7a674c;">Traditional Ontario Craftsmanship</span></div>
         </div>
       </div>
 
