@@ -228,7 +228,7 @@
                 <div onDrop="{{ onDrop }}" onDragOver="{{ onDragOver }}" style="border:1px dashed #8a6a3a; background:#fffdf8; padding:24px; text-align:center;">
                   <div style="font-family:'EB Garamond',serif; font-style:italic; font-size:14px; color:#7a674c;">Drag photos here, or</div>
                   <label for="fileUp" style="display:inline-block; margin-top:12px; font-family:'Marcellus SC',serif; font-size:13px; letter-spacing:.1em; color:#faf3ea; background:#4a3a26; padding:11px 24px; cursor:pointer;">CHOOSE FILES</label>
-                  <input id="fileUp" name="attachment" type="file" accept="image/*" multiple="" onChange="{{ onPick }}" style="display:none;">
+                  <input id="fileUp" name="attachment" type="file" accept="image/*" multiple="multiple" onChange="{{ onPick }}" style="display:none;">
                   <sc-if value="{{ hasFiles }}" hint-placeholder-val="{{ false }}">
                     <div style="margin-top:16px; text-align:left; font-family:'EB Garamond',serif; font-size:14px; color:#4a3a26; max-width:440px; margin-left:auto; margin-right:auto;">
                       <sc-for list="{{ files }}" as="f" hint-placeholder-count="0">
@@ -263,7 +263,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  MAX_BYTES = 20 * 1024 * 1024; // safety guard on total attachment size
+  MAX_BYTES = 9 * 1024 * 1024; // stay under FormSubmit's 10 MB total cap
 
   state = { files: [], raw: [], sent: false, sending: false, error: "", zoom: null };
 
@@ -279,9 +279,39 @@ class Component extends DCLogic {
     if (n < 1048576) return (n / 1024).toFixed(0) + " KB";
     return (n / 1048576).toFixed(1) + " MB";
   }
-  add(list) {
+  MAX_DIM = 1800;        // longest edge after downscale
+  JPEG_QUALITY = 0.82;
+
+  compress(file) {
+    return new Promise((resolve) => {
+      if (!file.type || !file.type.startsWith("image/")) { resolve(file); return; }
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        const scale = Math.min(1, this.MAX_DIM / Math.max(img.width, img.height));
+        const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+        const c = document.createElement("canvas");
+        c.width = w; c.height = h;
+        const ctx = c.getContext("2d");
+        ctx.fillStyle = "#ffffff";       // JPEG has no alpha — flatten transparency to white, not black
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        c.toBlob((blob) => {
+          if (!blob) { resolve(file); return; }
+          const name = file.name.replace(/\.(png|webp|heic|heif|tiff?)$/i, ".jpg");
+          resolve(new File([blob], name, { type: "image/jpeg" }));
+        }, "image/jpeg", this.JPEG_QUALITY);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+      img.src = url;
+    });
+  }
+
+  async add(list) {
     if (!list || !list.length) return;
-    const raw = [...this.state.raw, ...Array.from(list)];
+    const compressed = await Promise.all(Array.from(list).map(f => this.compress(f)));
+    const raw = [...this.state.raw, ...compressed];
     const files = raw.map(f => ({ name: f.name, sizeLabel: this.fmt(f.size) }));
     this.setState({ raw, files, error: "" });
   }
