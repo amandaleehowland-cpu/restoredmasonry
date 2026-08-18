@@ -38,6 +38,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 </head>
 <body>
 
@@ -344,16 +345,23 @@
           <textarea id="message" name="message" placeholder="Approximate age of the building, what you are seeing, and anything else that would help."></textarea>
         </div>
         <div class="field">
-          <label for="photo">Attach a photo (optional)</label>
-          <input id="photo" name="attachment" type="file" accept="image/*">
-          <p class="field-hint">A photo of the affected area helps a great deal. Close-ups of cracking or damage, plus one wider shot for context.</p>
+          <label for="photo">Attach photos (optional)</label>
+          <p class="field-hint">Photos of the affected area help assess the scope of work before the first visit. Close-ups of damage or cracking, plus one wider shot for context. They are combined into a single PDF when you send.</p>
+          <div class="dropzone" id="dropzone">
+            <p class="dropzone-hint">Drag photos here, or</p>
+            <label class="btn btn-sm" for="photo">Choose files</label>
+            <input id="photo" name="attachment" type="file" accept="image/*" multiple hidden>
+            <div class="filelist" id="filelist" hidden></div>
+            <button type="button" class="clear-all" id="clear-photos" hidden>Clear all</button>
+          </div>
+          <p class="form-error" id="form-error" hidden></p>
         </div>
 
         <div class="hp" aria-hidden="true">
           <label for="company">Company</label>
           <input id="company" name="_honey" type="text" tabindex="-1" autocomplete="off">
         </div>
-        <button class="btn btn-solid" type="submit">Send request</button>
+        <button class="btn btn-solid" type="submit" id="send-btn">Send request</button>
         <p class="form-note">Reply within one to two business days</p>
       </div>
     </form>
@@ -399,11 +407,190 @@
 </footer>
 
 <script>
-  /* shows the thank-you line after FormSubmit redirects back with ?sent=1 */
-  if (new URLSearchParams(location.search).has('sent')) {
-    var s = document.getElementById('form-sent');
-    if (s) { s.hidden = false; s.scrollIntoView({block:'center'}); }
+/* ------------------------------------------------------------------
+   Thank-you line, shown after FormSubmit redirects back with ?sent=1
+   ------------------------------------------------------------------ */
+if (new URLSearchParams(location.search).has('sent')) {
+  var sent = document.getElementById('form-sent');
+  if (sent) { sent.hidden = false; sent.scrollIntoView({block:'center'}); }
+}
+
+/* ------------------------------------------------------------------
+   Photo attachments
+   People pick or drag in as many photos as they like. Each one is
+   downscaled and re-encoded as JPEG to keep the size sane, then on
+   submit they are bound into a single PDF and handed to the form as
+   one attachment, because FormSubmit accepts one file per send.
+   ------------------------------------------------------------------ */
+(function () {
+  var MAX_BYTES = 9 * 1024 * 1024;  // FormSubmit caps a send at 10 MB
+  var MAX_DIM = 1800;               // longest edge after downscaling
+  var JPEG_QUALITY = 0.82;
+
+  var form     = document.querySelector('form.form-card');
+  var input    = document.getElementById('photo');
+  var zone     = document.getElementById('dropzone');
+  var list     = document.getElementById('filelist');
+  var clearBtn = document.getElementById('clear-photos');
+  var errorBox = document.getElementById('form-error');
+  var sendBtn  = document.getElementById('send-btn');
+  if (!form || !input || !zone) return;
+
+  var photos = [];      // the compressed originals
+  var sending = false;
+
+  function size(n) {
+    if (n < 1024) return n + ' B';
+    if (n < 1048576) return (n / 1024).toFixed(0) + ' KB';
+    return (n / 1048576).toFixed(1) + ' MB';
   }
+
+  function showError(msg) {
+    errorBox.textContent = msg || '';
+    errorBox.hidden = !msg;
+  }
+
+  function draw() {
+    list.innerHTML = '';
+    photos.forEach(function (f, i) {
+      var row = document.createElement('div');
+      var name = document.createElement('span');
+      name.textContent = f.name;
+      var sz = document.createElement('span');
+      sz.className = 'size';
+      sz.textContent = size(f.size);
+      row.appendChild(name); row.appendChild(sz);
+      list.appendChild(row);
+    });
+    var any = photos.length > 0;
+    list.hidden = !any;
+    clearBtn.hidden = !any;
+  }
+
+  /* downscale and re-encode, so a pile of 12 MP phone photos still fits */
+  function compress(file) {
+    return new Promise(function (resolve) {
+      if (!file.type || file.type.indexOf('image/') !== 0) { resolve(file); return; }
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var scale = Math.min(1, MAX_DIM / Math.max(img.width, img.height));
+        var w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+        var c = document.createElement('canvas');
+        c.width = w; c.height = h;
+        var ctx = c.getContext('2d');
+        ctx.fillStyle = '#ffffff';   // JPEG has no transparency, so flatten to white not black
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        c.toBlob(function (blob) {
+          if (!blob) { resolve(file); return; }
+          var name = file.name.replace(/\.(png|webp|heic|heif|tiff?)$/i, '.jpg');
+          resolve(new File([blob], name, { type: 'image/jpeg' }));
+        }, 'image/jpeg', JPEG_QUALITY);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+      img.src = url;
+    });
+  }
+
+  function add(fileList) {
+    if (!fileList || !fileList.length) return;
+    showError('');
+    Promise.all(Array.prototype.map.call(fileList, compress)).then(function (done) {
+      photos = photos.concat(done);
+      draw();
+    });
+  }
+
+  function readImage(file) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function () {
+        var img = new Image();
+        img.onload = function () { resolve({ dataURL: reader.result, w: img.naturalWidth, h: img.naturalHeight }); };
+        img.onerror = reject;
+        img.src = reader.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  /* one photo per A4 page, centred, aspect ratio kept */
+  function buildPdf(files) {
+    var jsPDF = window.jspdf && window.jspdf.jsPDF;
+    var pdf = new jsPDF({ unit: 'pt', format: 'a4', compress: true });
+    var pageW = pdf.internal.pageSize.getWidth();
+    var pageH = pdf.internal.pageSize.getHeight();
+    var margin = 28;
+    var maxW = pageW - margin * 2, maxH = pageH - margin * 2;
+    var first = true;
+
+    return files.reduce(function (chain, file) {
+      return chain.then(function () {
+        return readImage(file).then(function (im) {
+          var scale = Math.min(maxW / im.w, maxH / im.h);
+          var w = im.w * scale, h = im.h * scale;
+          if (!first) pdf.addPage();
+          first = false;
+          pdf.addImage(im.dataURL, /png/i.test(file.type) ? 'PNG' : 'JPEG',
+                       (pageW - w) / 2, (pageH - h) / 2, w, h);
+        }).catch(function () { /* skip anything unreadable */ });
+      });
+    }, Promise.resolve()).then(function () { return pdf.output('blob'); });
+  }
+
+  /* hand the PDF to the file input, then let the form post normally */
+  function attach(file) {
+    var dt = new DataTransfer();
+    dt.items.add(file);
+    input.files = dt.files;
+  }
+
+  input.addEventListener('change', function () { add(input.files); input.value = ''; });
+
+  clearBtn.addEventListener('click', function () {
+    photos = []; input.value = ''; draw(); showError('');
+  });
+
+  ['dragenter','dragover'].forEach(function (ev) {
+    zone.addEventListener(ev, function (e) { e.preventDefault(); zone.classList.add('is-over'); });
+  });
+  ['dragleave','drop'].forEach(function (ev) {
+    zone.addEventListener(ev, function (e) { e.preventDefault(); zone.classList.remove('is-over'); });
+  });
+  zone.addEventListener('drop', function (e) {
+    if (e.dataTransfer && e.dataTransfer.files) add(e.dataTransfer.files);
+  });
+
+  form.addEventListener('submit', function (e) {
+    if (sending || !photos.length) return;   // nothing attached, send as usual
+    e.preventDefault();
+    sending = true;
+    sendBtn.textContent = 'Sending';
+    showError('');
+
+    var work = (window.jspdf && window.jspdf.jsPDF)
+      ? buildPdf(photos).then(function (blob) { return new File([blob], 'project-photos.pdf', { type: 'application/pdf' }); })
+      : Promise.resolve(photos[0]);          // library did not load, send the first photo
+
+    work.then(function (file) {
+      if (file.size > MAX_BYTES) {
+        sending = false;
+        sendBtn.textContent = 'Send request';
+        showError('Those photos come to ' + size(file.size) + ', which is too large to send. Remove a few and try again, or email them to projects@restoredmasonry.com.');
+        return;
+      }
+      attach(file);
+      form.submit();                          // native post, skips this handler
+    }).catch(function () {
+      sending = false;
+      sendBtn.textContent = 'Send request';
+      showError('Something went wrong preparing the photos. Try again, or email them to projects@restoredmasonry.com.');
+    });
+  });
+})();
 </script>
 
 </body>

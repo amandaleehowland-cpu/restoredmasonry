@@ -221,7 +221,7 @@ section[id]{ scroll-margin-top:80px; }
 .field ::placeholder{ color:var(--ink-soft); opacity:1; }
 .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
 @media (max-width:520px){ .field-row{ grid-template-columns:1fr; } }
-.form-card .btn{ width:100%; margin-top:10px; }
+.form-card button[type=submit]{ width:100%; margin-top:10px; }
 .form-note{ font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); margin:16px 0 0; text-align:center; }
 .hp{ position:absolute; left:-9999px; }
 .field input[type=file]{ padding:10px 0; font-size:.82rem; color:var(--ink-mid); border-bottom:1px solid var(--rule); }
@@ -231,6 +231,21 @@ section[id]{ scroll-margin-top:80px; }
   background:transparent; color:var(--ink); border:1px solid var(--rule);
 }
 .field-hint{ font-size:.74rem; line-height:1.6; color:var(--ink-soft); margin:10px 0 0; text-transform:none; letter-spacing:0; }
+.dropzone{ border:1px dashed var(--rule); background:var(--paper-warm); padding:26px 22px; text-align:center; margin-top:14px; }
+.dropzone.is-over{ border-color:var(--ink); background:#F0E8DC; }
+.dropzone-hint{ font-size:.86rem; color:var(--ink-soft); margin:0 0 14px; }
+.dropzone .btn-sm{ display:inline-block; }
+.filelist{ margin:18px auto 0; max-width:26rem; text-align:left; font-size:.84rem; }
+.filelist div{ display:flex; justify-content:space-between; gap:14px; padding:6px 0; border-bottom:1px dotted var(--rule); }
+.filelist .size{ color:var(--ink-soft); white-space:nowrap; }
+.clear-all{
+  margin-top:14px; background:none; border:0; cursor:pointer; color:var(--ink-mid);
+  font-family:var(--sans); font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; text-decoration:underline;
+}
+.form-error{
+  margin:18px 0 0; padding:12px 14px; font-size:.86rem;
+  color:#8A3A2A; background:#F6E6DF; border:1px solid #D8B3A6;
+}
 .form-sent{
   margin:0 0 24px; padding:14px 16px; border:1px solid var(--rule);
   font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; text-align:center;
