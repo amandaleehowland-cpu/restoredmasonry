@@ -302,7 +302,7 @@
 
     <!-- Submissions go to FormSubmit, the same service the previous site used.
          They arrive as email at projects@restoredmasonry.com. Nothing to configure. -->
-    <form class="form-card" action="https://formsubmit.co/projects@restoredmasonry.com" method="POST">
+    <form class="form-card" action="https://formsubmit.co/projects@restoredmasonry.com" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="_subject" value="New consultation request &mdash; restoredmasonry.com">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
@@ -343,6 +343,12 @@
           <label for="message">Tell me about the property</label>
           <textarea id="message" name="message" placeholder="Approximate age of the building, what you are seeing, and anything else that would help."></textarea>
         </div>
+        <div class="field">
+          <label for="photo">Attach a photo (optional)</label>
+          <input id="photo" name="attachment" type="file" accept="image/*">
+          <p class="field-hint">A photo of the affected area helps a great deal. Close-ups of cracking or damage, plus one wider shot for context.</p>
+        </div>
+
         <div class="hp" aria-hidden="true">
           <label for="company">Company</label>
           <input id="company" name="_honey" type="text" tabindex="-1" autocomplete="off">
