@@ -1,421 +1,404 @@
 <!DOCTYPE html>
-<html>
+<!--
+  ==========================================================================
+  RESTORED MASONRY | restoredmasonry.com homepage
+  ==========================================================================
+  Files
+    index.html   this page, structured in commented sections
+    styles.css   all styling, colours and type at the top under :root
+    assets/      the two engravings taken from the business card
+
+  The things most likely to change
+    1. Contact details    search for  projects@restoredmasonry.com
+    2. Testimonials       search for  PLACEHOLDER testimonial
+    3. Colours and fonts  styles.css, the :root block at the very top
+
+  The contact form posts to FormSubmit (formsubmit.co), the same service the
+  previous homepage used, so enquiries keep arriving by email with no setup.
+  The first submission from a new form triggers a one-time confirmation email
+  from FormSubmit that you have to click.
+
+  Every section below is wrapped in a comment banner so you can find things
+  by scrolling.
+  ==========================================================================
+-->
+<html lang="en-CA">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<title>Restored Masonry | Traditional Ontario Craftsmanship</title>
+<meta name="description" content="Heritage masonry conservation for pre-1940 buildings across the Greater Ottawa area and Prescott-Russell. Lime mortar repointing, stone repair, brick restoration.">
+<meta property="og:title" content="Restored Masonry | Traditional Ontario Craftsmanship">
+<meta property="og:description" content="Heritage masonry conservation for pre-1940 buildings. Lime mortar repointing, stone repair, brick restoration.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://restoredmasonry.com/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<x-dc>
-<helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;family=Marcellus+SC&amp;family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<style>
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background:#efe7d8; }
-  a { color: #8a6a3a; }
-  a:hover { color: #6d5029; }
-  .paper-noise::after { content:""; position:absolute; inset:0; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E"); mix-blend-mode:multiply; opacity:.06; }
-  @media (max-width: 680px) {
-    html, body { overflow-x: hidden !important; }
-    .card-stage { width: 100% !important; height: auto !important; display: flex !important; flex-direction: column; align-items: center; gap: 22px; }
-    .card-back, .card-front { position: static !important; width: 100% !important; max-width: 360px !important; height: auto !important; aspect-ratio: 7 / 4; transform: rotate(0deg) !important; }
-    .card-back { order: 2; }
-    .card-front { order: 1; }
-    .card-front img { height: 74% !important; width: auto !important; }
-    .card-back { position: static !important; width: 100% !important; max-width: 440px !important; height: auto !important; aspect-ratio: 3 / 2; transform: rotate(0deg) !important; cursor: default !important; }
-    .card-back .bk-inner { padding: 0 16px !important; }
-    .card-back .bk-svc { font-size: 12px !important; letter-spacing: .02em !important; white-space: nowrap !important; }
-    .card-back .bk-contact { font-size: 15px !important; }
-    .card-back .bk-divider { margin-bottom: 22px !important; }
-    .flier-paper { padding: 46px 34px 48px !important; }
-    .flier-title { font-size: 42px !important; }
-    .services-grid { grid-template-columns: 1fr !important; gap: 26px !important; }
-    .form-row { grid-template-columns: 1fr !important; }
-    .tape-corner { display: none !important; }
-    .zoom-card { aspect-ratio: auto !important; width: 94vw !important; min-height: 62vw; }
-    .zoom-back-inner { padding: 0 22px !important; }
-    .zoom-back-inner div[style*="font-size:15px"] { font-size: 12px !important; letter-spacing: .12em !important; }
-    .card-back, .card-front { cursor: default !important; }
-  }
-</style>
-</helmet>
 
-<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#faf3ea"/><rect x="14" y="14" width="72" height="72" fill="none" stroke="#cbb890"/><rect x="18" y="18" width="64" height="64" fill="none" stroke="#cbb890"/><text x="50" y="60" font-family="Georgia,serif" font-size="30" fill="#8a6a3a" text-anchor="middle">RM</text></svg></template>
+<a class="skip" href="#main">Skip to content</a>
 
-<!-- ===================== THE DESK ===================== -->
-<div style="position: relative; min-height: 100vh; font-family: 'EB Garamond',Georgia,serif; background: url(&quot;images/wood-desk.jpg&quot;) center top / cover no-repeat fixed;">
-
-  <div style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,.28), transparent 55%), radial-gradient(140% 120% at 50% 120%, rgba(120,90,50,.18), transparent 60%);"></div>
-
-  <!-- ===================== TOP OF DESK: CARD + PEN ===================== -->
-  <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 56px 24px 88px;">
-
-    <!-- coffee ring, faint -->
-    
-
-    <!-- TWO-SIDED BUSINESS CARD ON THE DESK -->
-    
-
-    <!-- dip pen resting on desk -->
-    
-
-    <!-- scroll cue -->
-    <a href="#flier" style="margin-top:40px; text-decoration:none; text-align:center; font-family:'Marcellus SC',serif; font-size:11px; letter-spacing:.28em; color:#6d5029;">
-      
-      
-    </a><div class="card-stage" style="position: relative; width: 810px; max-width: 96vw; height: 450px">
-
-      <!-- BACK of card (peeking, rotated) -->
-      <div class="paper-noise card-back" onClick="{{ openBack }}" style="position:absolute; top:70px; left:0; width:406px; height:232px; transform:rotate(4.5deg); background:#faf3ea; border-radius:4px; box-shadow:0 30px 46px -20px rgba(0,0,0,.6); overflow:hidden; cursor:zoom-in;">
-        <div style="position:absolute; inset:13px; border:1px solid #cbb890;"></div>
-        <div style="position:absolute; inset:16px; border:1px solid #cbb890;"></div>
-        <div class="bk-inner" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 46px; color:#4a3a26;">
-          <div class="bk-divider" style="display:flex; align-items:center; gap:12px; margin-bottom:12px; color:#8a6a3a;"><span style="height:1px; width:46px; background:#cbb890;"></span><span style="font-size:9px;">◆</span><span style="height:1px; width:46px; background:#cbb890;"></span></div>
-          <div class="bk-svc" style="font-family:'Marcellus SC',serif; font-size:10px; letter-spacing:.18em; line-height:2; color:#8a6a3a;">LIME MORTAR REPOINTING · STONE REPAIR<br>BRICK RESTORATION · HERITAGE CONSERVATION</div>
-          <div class="bk-contact" style="margin-top:14px; font-size:12.5px; line-height:1.8; color:#4a3a26;"><a href="#contact" style="color:#4a3a26; text-decoration:none;">projects@restoredmasonry.com</a><br><span style="font-style:italic; color:#7a674c;">Traditional Ontario Craftsmanship</span></div>
-        </div>
-      </div>
-
-      <!-- FRONT of card (real logo) -->
-      <div class="paper-noise card-front" onClick="{{ openFront }}" style="position:absolute; top:0; right:0; width:436px; max-width:92vw; height:250px; transform:rotate(-2.4deg); background:#faf3ea; border-radius:4px; box-shadow:0 44px 64px -22px rgba(0,0,0,.72), 0 6px 14px rgba(0,0,0,.3); overflow:hidden; cursor:zoom-in;">
-        <div style="position:absolute; inset:14px; border:1px solid #cbb890;"></div>
-        <div style="position:absolute; inset:17px; border:1px solid #cbb890;"></div>
-        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
-          <img src="images/rm-logo.png" alt="Restored Masonry" style="height:214px; width:214px; object-fit:contain;">
-        </div>
-      </div>
-    </div><div style="font-size: 18px; margin-top: 6px; font-family: &quot;Marcellus SC&quot;, serif">▾</div>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="mark" href="#top">
+      <div class="name">Restored Masonry</div>
+      <div class="sub">Traditional Ontario Craftsmanship</div>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#understand">About</a>
+      <a href="#services">Services</a>
+      <a href="#plan">Process</a>
+      <a href="#proof">Projects</a>
+      <a href="#faq">FAQs</a>
+    </nav>
+    <a class="btn btn-sm" href="#quote">Request a quote</a>
   </div>
+</header>
 
-  <!-- ===================== CARD ZOOM OVERLAY ===================== -->
-  <sc-if value="{{ isZoomed }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeZoom }}" style="position:fixed; inset:0; z-index:50; background:rgba(30,22,12,.72); display:flex; align-items:center; justify-content:center; padding:32px; cursor:zoom-out;">
-      <sc-if value="{{ zoomFront }}" hint-placeholder-val="{{ true }}">
-        <div class="paper-noise zoom-card" style="position:relative; width:620px; max-width:94vw; aspect-ratio:7/4; background:#faf3ea; border-radius:6px; box-shadow:0 50px 90px -20px rgba(0,0,0,.7);">
-          <div style="position:absolute; inset:20px; border:1px solid #cbb890;"></div>
-          <div style="position:absolute; inset:24px; border:1px solid #cbb890;"></div>
-          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
-            <img src="images/rm-logo.png" alt="Restored Masonry" style="height:78%; width:auto; object-fit:contain;">
-          </div>
-        </div>
-      </sc-if>
-      <sc-if value="{{ zoomBack }}" hint-placeholder-val="{{ false }}">
-        <div class="paper-noise zoom-card" style="position:relative; width:620px; max-width:94vw; aspect-ratio:7/4; background:#faf3ea; border-radius:6px; box-shadow:0 50px 90px -20px rgba(0,0,0,.7);">
-          <div style="position:absolute; inset:20px; border:1px solid #cbb890;"></div>
-          <div style="position:absolute; inset:24px; border:1px solid #cbb890;"></div>
-          <div class="zoom-back-inner" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 64px; color:#4a3a26;">
-            <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; color:#8a6a3a;"><span style="height:1px; width:66px; background:#cbb890;"></span><span style="font-size:12px;">◆</span><span style="height:1px; width:66px; background:#cbb890;"></span></div>
-            <div style="font-family:'Marcellus SC',serif; font-size:15px; letter-spacing:.2em; line-height:2.1; color:#8a6a3a;">LIME MORTAR REPOINTING · STONE REPAIR<br>BRICK RESTORATION · HERITAGE CONSERVATION</div>
-            <div style="margin-top:22px; font-size:18px; line-height:1.9; color:#4a3a26;">projects@restoredmasonry.com<br><span style="font-style:italic; color:#7a674c;">Traditional Ontario Craftsmanship</span></div>
-          </div>
-        </div>
-      </sc-if>
-    </div>
-  </sc-if>
+<main id="main">
 
-  <!-- ===================== THE FLIER ===================== -->
-  <div id="flier" style="position: relative; z-index: 2; padding: 20px 24px 110px;">
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+  <img src="assets/arch-ornament.png" alt="" role="presentation">
+  <div class="hero-body">
+    <p class="hero-name">Amanda Howland</p>
+    <p class="hero-role">Stonemason, Heritage Conservation</p>
+    <h1>Preserve your home&rsquo;s heritage value</h1>
+    <p class="hero-sub">Worried about the crumbling mortar, spalling brick, or shifting stone on your heritage home? It can be repaired the way it was built.</p>
+    <p><a class="btn btn-solid" href="#quote">Request a quote</a></p>
+    <p class="hero-services">
+      Lime mortar repointing &nbsp;&middot;&nbsp; Stone repair<br>
+      Brick restoration &nbsp;&middot;&nbsp; Heritage conservation
+    </p>
+  </div>
+  </div>
+</section>
 
-    <div style="position:relative; width:720px; max-width:94vw; margin:0 auto;">
-      <!-- tape corners -->
-      <div class="tape-corner" style="position:absolute; top:-14px; left:60px; width:150px; height:42px; transform:rotate(-4deg); background:rgba(214,180,120,.5); border:1px solid rgba(120,90,50,.25); box-shadow:0 3px 8px rgba(0,0,0,.3); z-index:3;"></div>
-      <div class="tape-corner" style="position:absolute; top:-14px; right:60px; width:150px; height:42px; transform:rotate(3.5deg); background:rgba(214,180,120,.5); border:1px solid rgba(120,90,50,.25); box-shadow:0 3px 8px rgba(0,0,0,.3); z-index:3;"></div>
+<!-- ============================================================
+     EMPATHY
+     ============================================================ -->
+<section class="section band-warm" id="understand">
+  <div class="wrap center">
+    <p class="label">We understand</p>
+    <h2 class="ruled">We understand your heritage home</h2>
+    <p class="lede" style="margin-top:28px">Old buildings do not behave like new ones. The work keeps your property&rsquo;s historic character intact while making it sound and safe again.</p>
 
-      <div class="paper-noise flier-paper" style="position:relative; background:#faf3ea; color:#3a2c1b; padding:72px 64px 74px; box-shadow:0 60px 90px -30px rgba(0,0,0,.75);">
-        <div style="position:absolute; inset:18px; border:1px solid #cbb890; pointer-events:none;"></div>
-        <div style="position:absolute; inset:23px; border:1px solid #cbb890; pointer-events:none;"></div>
-
-        <div style="position:relative;">
-          <!-- MASTHEAD -->
-          <div style="text-align:center;">
-            <div style="font-family:'Marcellus SC',serif; font-size:13px; letter-spacing:.34em; color:#8a6a3a;">SERVING THE OTTAWA-HAWKSBURY CORRIDOR</div>
-            <div style="display:flex; align-items:center; gap:14px; justify-content:center; margin:16px 0;"><span style="height:1px; width:70px; background:#cbb890;"></span><span style="color:#8a6a3a; font-size:12px;">◆</span><span style="height:1px; width:70px; background:#cbb890;"></span></div>
-            <h1 class="flier-title" style="font-family:'Marcellus SC',serif; font-weight:400; font-size:58px; line-height:1.06; letter-spacing:.04em; margin:4px 0; color:#3a2c1b;">Restored<br>Masonry</h1>
-            
-            <p style="font-family:'EB Garamond',serif; font-style:italic; font-size:19px; line-height:1.62; margin:22px auto 0; max-width:520px; color:#5a4a34;">Heritage masonry conservation for pre-1940 buildings across the Greater Ottawa area and Prescott-Russell. Every repair tailored to its building, held to compatibility, documentation, and craft.</p>
-          </div>
-
-          <!-- THE APPROACH -->
-          <div style="margin-top:48px; border-top:1px solid #cbb890; border-bottom:1px solid #cbb890; padding:28px 0;">
-            <div style="text-align:center; font-family:'Marcellus SC',serif; font-size:13px; letter-spacing:.24em; color:#8a6a3a; margin-bottom:14px;">THE APPROACH</div>
-            <p style="font-family: 'EB Garamond',serif; font-size: 16px; line-height: 1.75; color: #4a3a26; margin: 0 auto; max-width: 560px; text-align: center">Understand how lime mortar behaves, how old brick ages, how moisture moves through a wall, and why the wrong repair can do more harm than the damage it was meant to fix. No two buildings are exactly alike; every repair should be tailored to its needs.</p>
-          </div>
-
-          <!-- SERVICES -->
-          <div style="text-align:center; margin:44px 0 24px; font-family:'Marcellus SC',serif; font-size:16px; letter-spacing:.24em; color:#8a6a3a;">SERVICES</div>
-          <div class="services-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:32px 46px;">
-            <div style="text-align:center;">
-              <div style="font-family:'Marcellus',serif; font-size:24px; color:#3a2c1b;">Lime Mortar Repointing</div>
-              <p style="font-family:'EB Garamond',serif; font-size:15px; line-height:1.6; color:#5a4a34; margin:8px 0 0;">Traditional lime mortars matched to the original in strength, colour, and joint profile.</p>
-            </div>
-            <div style="text-align:center;">
-              <div style="font-family:'Marcellus',serif; font-size:24px; color:#3a2c1b;">Stone Repair</div>
-              <p style="font-family:'EB Garamond',serif; font-size:15px; line-height:1.6; color:#5a4a34; margin:8px 0 0;">Piecing-in, dutchman repairs, and consolidation of weathered and damaged stone.</p>
-            </div>
-            <div style="text-align:center;">
-              <div style="font-family:'Marcellus',serif; font-size:24px; color:#3a2c1b;">Brick Restoration</div>
-              <p style="font-family:'EB Garamond',serif; font-size:15px; line-height:1.6; color:#5a4a34; margin:8px 0 0;">Repair and replacement using period-appropriate, locally fired brick.</p>
-            </div>
-            <div style="text-align:center;">
-              <div style="font-family:'Marcellus',serif; font-size:24px; color:#3a2c1b;">Heritage Conservation</div>
-              <p style="font-family:'EB Garamond',serif; font-size:15px; line-height:1.6; color:#5a4a34; margin:8px 0 0;">Documentation-led rehabilitation of pre-1940 buildings, guided by compatibility.</p>
-            </div>
-          </div>
-
-          <div style="display:flex; align-items:center; gap:14px; justify-content:center; margin:46px 0;"><span style="height:1px; flex:1; background:#cbb890;"></span><span style="color:#8a6a3a; font-size:12px;">◆</span><span style="height:1px; flex:1; background:#cbb890;"></span></div>
-
-          <!-- SELECTED PROJECTS -->
-          <div style="text-align:center; font-family:'Marcellus SC',serif; font-size:16px; letter-spacing:.24em; color:#8a6a3a; margin-bottom:20px;">SELECTED PROJECTS</div>
-          <div style="font-family:'EB Garamond',serif; font-size:18px; line-height:2.1; text-align:center; color:#3a2c1b;">
-            Parliament Hill &nbsp;·&nbsp; The Supreme Court of Canada<br>
-            Former Ottawa City Registry Office<br>
-            Heritage chimneys, The Glebe &nbsp;·&nbsp; Post-derecho rural restoration
-          </div>
-
-          <!-- MENTORSHIP -->
-          <div style="margin-top:44px; text-align:center;">
-            <div style="font-family:'Marcellus SC',serif; font-size:13px; letter-spacing:.22em; color:#8a6a3a; margin-bottom:12px;">MENTORSHIP &amp; GUILD</div>
-            <p style="font-family:'EB Garamond',serif; font-style:italic; font-size:16px; line-height:1.7; color:#5a4a34; margin:0 auto; max-width:540px;">Currently studying under Dr. Christopher Cooper who has four decades restoring historic structures across five continents as architect, mason, woodworker, artist, and professor.&nbsp; Joining the Edifice Atelier guild continues to shape my career. More at <a href="https://oldhomeliving.com">oldhomeliving.com</a>.</p>
-          </div>
-
-          <!-- CONTACT FORM -->
-          <div id="contact" style="margin-top:56px; border:1px solid #cbb890; padding:7px;">
-            <div style="border:1px solid #cbb890; padding:38px 34px 40px;">
-              <div style="text-align:center;">
-                <div style="font-family:'Marcellus SC',serif; font-size:13px; letter-spacing:.26em; color:#8a6a3a;">ENQUIRIES</div>
-                <h2 style="font-family:'Marcellus',serif; font-weight:400; font-size:40px; margin:10px 0 12px; color:#3a2c1b;">Request a Consultation</h2>
-                <p style="font-family:'EB Garamond',serif; font-size:16px; line-height:1.55; color:#5a4a34; margin:0 auto 30px; max-width:480px;">Share details about your restoration project and we'll respond within one to two business days with next steps.</p>
-              </div>
-
-              <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
-                <div style="text-align:center; padding:26px 0;">
-                  <div style="display:inline-block; font-family:'Marcellus',serif; font-size:30px; color:#8a6a3a; border:1px solid #8a6a3a; padding:14px 34px;">With Thanks</div>
-                  <p style="font-family:'EB Garamond',serif; margin:22px 0 0; font-size:16px; color:#5a4a34;">Your enquiry is received — I'll reply within two business days.</p>
-                </div>
-              </sc-if>
-
-              <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-              <form action="https://formsubmit.co/projects@restoredmasonry.com" method="POST" enctype="multipart/form-data" onSubmit="{{ onSubmit }}" style="display:grid; gap:22px; text-align:left;">
-                <input type="hidden" name="_subject" value="New consultation request — restoredmasonry.com">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://restoredmasonry.com/?sent=1#contact">
-                <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:22px;">
-                  <div style="display:grid; gap:7px;">
-                    <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">FULL NAME</label>
-                    <input name="name" required="" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
-                  </div>
-                  <div style="display:grid; gap:7px;">
-                    <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">EMAIL ADDRESS</label>
-                    <input name="email" type="email" required="" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
-                  </div>
-                </div>
-
-                <div style="display:grid; gap:7px;">
-                  <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">PHONE NUMBER <span style="font-family:'EB Garamond',serif; font-style:italic; letter-spacing:0; text-transform:none; color:#a08a68;">(optional)</span></label>
-                  <input name="phone" type="tel" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
-                </div>
-
-                <div style="display:grid; gap:7px;">
-                  <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">PROPERTY ADDRESS <span style="font-family:'EB Garamond',serif; font-style:italic; letter-spacing:0; text-transform:none; color:#a08a68;">(optional)</span></label>
-                  <input name="property_address" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b;">
-                  <div style="font-family: 'EB Garamond',serif; font-style: normal; font-size: 13.5px; line-height: 1.5; color: #7a674c">If you're comfortable sharing it, this helps us understand the age and style of construction ahead of time, and cost of getting materials to you.</div>
-                </div>
-
-                <div style="display:grid; gap:7px;">
-                  <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">TELL US ABOUT YOUR PROJECT</label>
-                  <textarea name="message" rows="5" required="" style="font-family:'EB Garamond',serif; font-size:16px; padding:13px 14px; border:1px solid #cbb890; background:#fffdf8; color:#3a2c1b; resize:vertical;"></textarea>
-                  <div style="font-family: 'EB Garamond',serif; font-style: normal; font-size: 13.5px; line-height: 1.5; color: #7a674c">Describe the masonry work needed, such as repointing, stone repair, chimney restoration, or foundation work. Include the age of the structure if known.</div>
-                </div>
-
-                <div style="display:grid; gap:7px;">
-                  <label style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.14em; color:#8a6a3a;">ATTACH PHOTOS <span style="font-family:'EB Garamond',serif; font-style:italic; letter-spacing:0; text-transform:none; color:#a08a68;">(optional)</span></label>
-                  <div style="font-family: 'EB Garamond',serif; font-style: normal; font-size: 13.5px; line-height: 1.5; color: #7a674c; margin-bottom: 2px">Photos of the affected area help us assess the scope of work and provide a more accurate estimate before our first visit. Feel free to include close-ups of damage, cracking, or areas of concern, along with a wider shot for context.</div>
-                <div onDrop="{{ onDrop }}" onDragOver="{{ onDragOver }}" style="border:1px dashed #8a6a3a; background:#fffdf8; padding:24px; text-align:center;">
-                  <div style="font-family:'EB Garamond',serif; font-style:italic; font-size:14px; color:#7a674c;">Drag photos here, or</div>
-                  <label for="fileUp" style="display:inline-block; margin-top:12px; font-family:'Marcellus SC',serif; font-size:13px; letter-spacing:.1em; color:#faf3ea; background:#4a3a26; padding:11px 24px; cursor:pointer;">CHOOSE FILES</label>
-                  <input id="fileUp" name="attachment" type="file" accept="image/*" multiple="multiple" onChange="{{ onPick }}" style="display:none;">
-                  <sc-if value="{{ hasFiles }}" hint-placeholder-val="{{ false }}">
-                    <div style="margin-top:16px; text-align:left; font-family:'EB Garamond',serif; font-size:14px; color:#4a3a26; max-width:440px; margin-left:auto; margin-right:auto;">
-                      <sc-for list="{{ files }}" as="f" hint-placeholder-count="0">
-                        <div style="display:flex; justify-content:space-between; border-bottom:1px dotted #cbb890; padding:5px 0;"><span>📎 {{ f.name }}</span><span style="color:#8a6a3a;">{{ f.sizeLabel }}</span></div>
-                      </sc-for>
-                      <button type="button" onClick="{{ clear }}" style="margin-top:10px; background:none; border:none; color:#8a6a3a; font-family:'Marcellus SC',serif; font-size:11px; letter-spacing:.1em; cursor:pointer;">CLEAR ALL</button>
-                    </div>
-                  </sc-if>
-                </div>
-                </div>
-
-                <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
-                  <div style="font-family:'EB Garamond',serif; font-size:14.5px; color:#8a3a2a; background:#f6e6df; border:1px solid #d8b3a6; padding:12px 14px;">{{ errorMsg }}</div>
-                </sc-if>
-                <button type="submit" disabled="{{ sending }}" style="font-family:'Marcellus',serif; font-size:20px; color:#faf3ea; background:#4a3a26; border:none; padding:16px; cursor:pointer; letter-spacing:.02em; opacity:{{ btnOpacity }};">{{ btnLabel }}</button>
-              </form>
-              </sc-if>
-            </div>
-          </div>
-
-          <!-- FOOTER -->
-          <div style="text-align:center; margin-top:44px;">
-            <div style="color:#8a6a3a; font-size:14px;">◆</div>
-            <div style="font-family:'Marcellus SC',serif; font-size:12px; letter-spacing:.24em; color:#8a6a3a; margin-top:12px;">RESTORED MASONRY</div>
-            <div style="font-family:'EB Garamond',serif; font-size:14px; color:#7a674c; margin-top:6px;">projects@restoredmasonry.com&nbsp; · Ottawa – Hawkesbury Corridor</div>
-          </div>
-        </div>
+    <div class="duo">
+      <div>
+        <h3>Trained in traditional methods</h3>
+        <p>Understanding how lime mortar behaves, how old brick ages, and how moisture moves through a wall. No two buildings are alike, so every repair is tailored to its own.</p>
+      </div>
+      <div>
+        <h3>Work on buildings that matter</h3>
+        <p>Parliament Hill and the Supreme Court of Canada, the former Ottawa City Registry Office, heritage chimneys in the Glebe, and post-derecho rural restoration.</p>
       </div>
     </div>
+
+    <!-- TESTIMONIAL, hidden until there are real quotes.
+         To bring it back: delete this comment opener and the closing arrow below,
+         and replace the quote and the name.
+    <figure class="quote">
+      <blockquote>&ldquo;Restored Masonry brought our home back to life and preserved its charm beautifully.&rdquo;</blockquote>
+      <cite>Emily Clarke, Homeowner</cite>
+    </figure>
+    -->
+
+    <p style="margin-top:46px"><a class="btn" href="#quote">Request a quote</a></p>
   </div>
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script>
-class Component extends DCLogic {
-  MAX_BYTES = 9 * 1024 * 1024; // stay under FormSubmit's 10 MB total cap
+</section>
 
-  state = { files: [], raw: [], sent: false, sending: false, error: "", zoom: null };
+<!-- ============================================================
+     STAKES
+     ============================================================ -->
+<section class="section band-dark">
+  <div class="wrap center">
+    <p class="label">What&rsquo;s at stake</p>
+    <h2 class="ruled">Don&rsquo;t risk losing your home&rsquo;s charm</h2>
+    <p class="lede" style="margin-top:28px">Masonry problems do not stay small. Here is what waiting another season usually costs.</p>
 
-  componentDidMount() {
-    try {
-      const p = new URLSearchParams(window.location.search);
-      if (p.get("sent") === "1") this.setState({ sent: true });
-    } catch (e) {}
+    <div class="risk-list">
+      <div class="risk-cols">
+        <p class="risk"><span class="num">I</span>Deteriorating masonry lowers property value.</p>
+        <p class="risk"><span class="num">II</span>Water gets behind the wall and freezes.</p>
+        <p class="risk"><span class="num">III</span>Historic character is lost once original brick fails.</p>
+        <p class="risk"><span class="num">IV</span>Loose brick and stone create safety risks.</p>
+        <p class="risk"><span class="num">V</span>Small repointing jobs turn into full rebuilds.</p>
+        <p class="risk"><span class="num">VI</span>The wrong mortar mix causes permanent damage.</p>
+        <p class="risk"><span class="num">VII</span>Visible damage complicates a future sale.</p>
+        <p class="risk"><span class="num">VIII</span>Living with a problem you keep meaning to fix.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:52px"><a class="btn btn-light" href="#quote">Request a quote</a></p>
+  </div>
+</section>
+
+<!-- ============================================================
+     VALUE
+     ============================================================ -->
+<section class="section" id="services">
+  <div class="wrap center">
+    <p class="label">What you get</p>
+    <h2 class="ruled">Restored to its original beauty</h2>
+    <p class="lede" style="margin-top:28px">Your heritage home can look right and be safe again. Here is what the work gives you.</p>
+
+    <div class="plates">
+      <div class="plate">
+        <h3>Lime mortar repointing</h3>
+        <p>Traditional lime mortars matched to the original in strength, colour, and joint profile, so moisture leaves through the mortar instead of the brick.</p>
+      </div>
+      <div class="plate">
+        <h3>Stone repair</h3>
+        <p>Piecing-in, dutchman repairs, and consolidation of weathered and damaged stone, cut to sit as though it had always been there.</p>
+      </div>
+      <div class="plate">
+        <h3>Brick restoration</h3>
+        <p>Repair and replacement using period-appropriate, locally fired brick rather than whatever the yard has in stock.</p>
+      </div>
+      <div class="plate">
+        <h3>Heritage conservation</h3>
+        <p>Documentation-led rehabilitation of pre-1940 buildings, guided by compatibility rather than by what is quickest.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:50px"><a class="btn" href="#quote">Request a quote</a></p>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROOF
+     ============================================================ -->
+<section class="section band-warm" id="proof">
+  <div class="wrap center">
+    <p class="label">Why homeowners trust the work</p>
+    <h2 class="ruled">We understand your concerns</h2>
+    <p class="lede" style="margin-top:28px">Expert support to restore your home&rsquo;s character and safety, with the credentials behind it.</p>
+
+    <div class="duo">
+      <div>
+        <h3>Selected projects</h3>
+        <p>Parliament Hill and the Supreme Court of Canada. The former Ottawa City Registry Office. Heritage chimneys in the Glebe, and post-derecho restoration through the countryside.</p>
+      </div>
+      <div>
+        <h3>Mentorship and guild</h3>
+        <p>Currently studying under Dr. Christopher Cooper, four decades restoring historic structures across five continents. Membership in the Edifice Atelier guild continues to shape the work.</p>
+      </div>
+    </div>
+
+    <!-- TESTIMONIAL, hidden until there are real quotes.
+         To bring it back: delete this comment opener and the closing arrow below,
+         and replace the quote and the name.
+    <figure class="quote">
+      <blockquote>&ldquo;They brought our family home back to life.&rdquo;</blockquote>
+      <cite>Sarah L., Heritage Homeowner</cite>
+    </figure>
+    -->
+  </div>
+</section>
+
+<!-- ============================================================
+     PLAN
+     ============================================================ -->
+<section class="section" id="plan">
+  <div class="wrap center">
+    <p class="label">The process</p>
+    <h2 class="ruled">Three simple steps to restore your home</h2>
+    <p class="lede" style="margin-top:28px">Your path to a safer, better-looking home starts with one conversation.</p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="numeral">I</span>
+        <h3>Get in touch</h3>
+        <p>Email or fill out the form on this page. Describe what you are seeing, and photos of the affected area help a great deal.</p>
+      </div>
+      <div class="step">
+        <span class="numeral">II</span>
+        <h3>Book a site visit</h3>
+        <p>The masonry is assessed in person and you get a plain-language explanation of what is happening to your wall.</p>
+      </div>
+      <div class="step">
+        <span class="numeral">III</span>
+        <h3>Receive your tailored plan</h3>
+        <p>A detailed restoration proposal with scope, materials, timeline, and a firm price.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:54px"><a class="btn" href="#quote">Request a quote</a></p>
+  </div>
+</section>
+
+<!-- ============================================================
+     EXPLANATORY
+     ============================================================ -->
+<section class="section band-warm">
+  <div class="wrap center">
+    <p class="label">A note from Amanda</p>
+    <h2 class="ruled">Experiencing masonry issues?</h2>
+    <div class="explain-body">
+      <p>Finding crumbling mortar or a cracked stone sill is unsettling, especially in a building you care about. Old walls need to be understood before they are repaired: how lime mortar behaves, how old brick ages, how moisture moves through a wall, and why the wrong repair can do more harm than the damage it was meant to fix.</p>
+      <p>Heritage masonry conservation for pre-1940 buildings across the Greater Ottawa area and Prescott-Russell. Every repair tailored to its building and held to compatibility, documentation, and craft. Let me help you keep your home&rsquo;s story going for the next generation.</p>
+    </div>
+    <div class="fleuron" style="margin-top:44px"><span></span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="center">
+      <p class="label">Common questions</p>
+      <h2 class="ruled">Questions homeowners ask</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>How do I know if my masonry needs repointing?</summary>
+        <p>Look for mortar you can scratch out with a key, gaps between brick, white powdery staining, or brick faces flaking off. Any of those means water is getting in. A site visit will tell you how far it has progressed.</p>
+      </details>
+      <details>
+        <summary>Why does the mortar type matter on an older building?</summary>
+        <p>Most buildings put up before roughly 1930 were laid with soft lime mortar. Modern Portland cement is harder than the brick around it, so it forces moisture and movement into the masonry units instead of the joints. That is what causes spalling. The mortar has to be matched to the original.</p>
+      </details>
+      <details>
+        <summary>Do I need a heritage permit?</summary>
+        <p>If your property is designated or sits in a heritage conservation district, likely yes. Municipal heritage staff are part of the process on many of these projects and I can help you through the application.</p>
+      </details>
+      <details>
+        <summary>What time of year can the work be done?</summary>
+        <p>Lime mortar needs temperatures above roughly 5&nbsp;&deg;C to cure properly, so the season runs spring through late fall in eastern Ontario. Booking early in the year gets you a better spot in the schedule.</p>
+      </details>
+      <details>
+        <summary>How long does a project take?</summary>
+        <p>A chimney rebuild or a small repointing area is often a few days. A full facade can run several weeks. Your proposal gives you a firm window before anything starts.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section class="section band-dark" id="quote">
+  <div class="wrap cta-grid">
+    <div>
+      <p class="label">Request a quote</p>
+      <h2>Let&rsquo;s look at your masonry</h2>
+      <p class="lede" style="margin-top:24px">Tell me what you are dealing with. I will reply within one to two business days with next steps.</p>
+      <div class="contact-lines">
+        <a href="mailto:projects@restoredmasonry.com">projects@restoredmasonry.com</a><br>
+        restoredmasonry.com<br>
+        Serving the Ottawa&ndash;Hawkesbury corridor
+      </div>
+    </div>
+
+    <!-- Submissions go to FormSubmit, the same service the previous site used.
+         They arrive as email at projects@restoredmasonry.com. Nothing to configure. -->
+    <form class="form-card" action="https://formsubmit.co/projects@restoredmasonry.com" method="POST">
+      <input type="hidden" name="_subject" value="New consultation request &mdash; restoredmasonry.com">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://restoredmasonry.com/?sent=1#quote">
+      <div class="form-inner">
+        <p class="form-sent" id="form-sent" hidden>Your enquiry is received. I&rsquo;ll reply within two business days.</p>
+        <div class="field-row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel">
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="address">Property address or town</label>
+          <input id="address" name="address" type="text" autocomplete="street-address">
+        </div>
+        <div class="field">
+          <label for="service">What do you need</label>
+          <select id="service" name="service">
+            <option value="">Select one</option>
+            <option>Lime mortar repointing</option>
+            <option>Stone repair</option>
+            <option>Brick restoration</option>
+            <option>Chimney repair or rebuild</option>
+            <option>Heritage conservation</option>
+            <option>Not sure, need an assessment</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Tell me about the property</label>
+          <textarea id="message" name="message" placeholder="Approximate age of the building, what you are seeing, and anything else that would help."></textarea>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="company">Company</label>
+          <input id="company" name="_honey" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <button class="btn btn-solid" type="submit">Send request</button>
+        <p class="form-note">Reply within one to two business days</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="ornament-band" style="padding-top:56px">
+    <img src="assets/footer-ornament.png" alt="" role="presentation">
+  </div>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="mark">
+        <div class="name">Restored Masonry</div>
+        <div class="sub">Traditional Ontario Craftsmanship</div>
+      </div>
+      <p class="footer-blurb">Amanda Howland<br>Stonemason, Heritage Conservation<br>Serving the Ottawa&ndash;Hawkesbury corridor</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#understand">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#plan">Process</a></li>
+        <li><a href="#proof">Projects</a></li>
+        <li><a href="#faq">FAQs</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:projects@restoredmasonry.com">projects@restoredmasonry.com</a></li>
+        <li><a href="#quote">Request a quote</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bar">
+    <span>&copy; 2026 Restored Masonry</span>
+    <span>Lime mortar repointing &middot; Stone repair &middot; Brick restoration &middot; Heritage conservation</span>
+  </div>
+</footer>
+
+<script>
+  /* shows the thank-you line after FormSubmit redirects back with ?sent=1 */
+  if (new URLSearchParams(location.search).has('sent')) {
+    var s = document.getElementById('form-sent');
+    if (s) { s.hidden = false; s.scrollIntoView({block:'center'}); }
   }
-
-  fmt(n) {
-    if (n < 1024) return n + " B";
-    if (n < 1048576) return (n / 1024).toFixed(0) + " KB";
-    return (n / 1048576).toFixed(1) + " MB";
-  }
-  MAX_DIM = 1800;        // longest edge after downscale
-  JPEG_QUALITY = 0.82;
-
-  compress(file) {
-    return new Promise((resolve) => {
-      if (!file.type || !file.type.startsWith("image/")) { resolve(file); return; }
-      const url = URL.createObjectURL(file);
-      const img = new Image();
-      img.onload = () => {
-        const scale = Math.min(1, this.MAX_DIM / Math.max(img.width, img.height));
-        const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
-        const c = document.createElement("canvas");
-        c.width = w; c.height = h;
-        const ctx = c.getContext("2d");
-        ctx.fillStyle = "#ffffff";       // JPEG has no alpha — flatten transparency to white, not black
-        ctx.fillRect(0, 0, w, h);
-        ctx.drawImage(img, 0, 0, w, h);
-        URL.revokeObjectURL(url);
-        c.toBlob((blob) => {
-          if (!blob) { resolve(file); return; }
-          const name = file.name.replace(/\.(png|webp|heic|heif|tiff?)$/i, ".jpg");
-          resolve(new File([blob], name, { type: "image/jpeg" }));
-        }, "image/jpeg", this.JPEG_QUALITY);
-      };
-      img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
-      img.src = url;
-    });
-  }
-
-  async add(list) {
-    if (!list || !list.length) return;
-    const compressed = await Promise.all(Array.from(list).map(f => this.compress(f)));
-    const raw = [...this.state.raw, ...compressed];
-    const files = raw.map(f => ({ name: f.name, sizeLabel: this.fmt(f.size) }));
-    this.setState({ raw, files, error: "" });
-  }
-
-  readImage(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const img = new Image();
-        img.onload = () => resolve({ dataURL: reader.result, w: img.naturalWidth, h: img.naturalHeight });
-        img.onerror = reject;
-        img.src = reader.result;
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
-
-  async buildPdf(files) {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({ unit: "pt", format: "a4", compress: true });
-    const pageW = pdf.internal.pageSize.getWidth();
-    const pageH = pdf.internal.pageSize.getHeight();
-    const margin = 28;
-    const maxW = pageW - margin * 2;
-    const maxH = pageH - margin * 2;
-    let first = true;
-    for (const file of files) {
-      let im;
-      try { im = await this.readImage(file); } catch (e) { continue; }
-      const scale = Math.min(maxW / im.w, maxH / im.h);
-      const w = im.w * scale, h = im.h * scale;
-      const x = (pageW - w) / 2, y = (pageH - h) / 2;
-      if (!first) pdf.addPage();
-      first = false;
-      const fmt = /image\/png/i.test(file.type) ? "PNG" : "JPEG";
-      pdf.addImage(im.dataURL, fmt, x, y, w, h);
-    }
-    return pdf.output("blob");
-  }
-
-  async submit(e) {
-    e.preventDefault();
-    if (this.state.sending) return;
-    const form = e.target;
-    const input = document.getElementById("fileUp");
-    this.setState({ sending: true, error: "" });
-    try {
-      if (this.state.raw.length && window.jspdf) {
-        const blob = await this.buildPdf(this.state.raw);
-        if (blob.size > this.MAX_BYTES) {
-          this.setState({ sending: false, error: "Those photos are too large to send (" + this.fmt(blob.size) + "). Please remove a few — or email them directly to projects@restoredmasonry.com." });
-          return;
-        }
-        const pdf = new File([blob], "project-photos.pdf", { type: "application/pdf" });
-        const dt = new DataTransfer();
-        dt.items.add(pdf);
-        if (input) input.files = dt.files;
-      } else if (this.state.raw.length && input) {
-        // jsPDF unavailable — fall back to the first photo
-        const dt = new DataTransfer();
-        dt.items.add(this.state.raw[0]);
-        input.files = dt.files;
-      }
-    } catch (err) {}
-    form.submit(); // native POST to FormSubmit (bypasses this handler)
-  }
-
-  renderVals() {
-    return {
-      files: this.state.files,
-      hasFiles: this.state.files.length > 0,
-      sent: this.state.sent,
-      notSent: !this.state.sent,
-      sending: this.state.sending,
-      hasError: !!this.state.error,
-      errorMsg: this.state.error,
-      btnLabel: this.state.sending ? "Sending…" : "Request Consultation",
-      btnOpacity: this.state.sending ? 0.6 : 1,
-      onPick: (e) => this.add(e.target.files),
-      onDrop: (e) => { e.preventDefault(); this.add(e.dataTransfer.files); },
-      onDragOver: (e) => e.preventDefault(),
-      clear: () => this.setState({ files: [], raw: [] }),
-      onSubmit: (e) => this.submit(e),
-      zoom: this.state.zoom,
-      isZoomed: this.state.zoom !== null,
-      zoomFront: this.state.zoom === "front",
-      zoomBack: this.state.zoom === "back",
-      openFront: () => { if (window.innerWidth > 680) this.setState({ zoom: "front" }); },
-      openBack: () => { if (window.innerWidth > 680) this.setState({ zoom: "back" }); },
-      closeZoom: () => this.setState({ zoom: null }),
-    };
-  }
-}
 </script>
+
 </body>
 </html>
