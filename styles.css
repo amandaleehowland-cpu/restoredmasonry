@@ -159,8 +159,8 @@ section[id]{ scroll-margin-top:80px; }
 .risk .num{ font-family:var(--display); font-size:.8rem; letter-spacing:.1em; color:rgba(242,235,225,.55); flex:none; }
 
 /* ---------- Value plates ---------- */
-.plates{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(18px,2.4vw,26px); margin-top:56px; text-align:left; }
-@media (max-width:760px){ .plates{ grid-template-columns:1fr; } }
+.plates{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(18px,2.4vw,26px); margin-top:56px; text-align:left; }
+@media (max-width:900px){ .plates{ grid-template-columns:1fr; } }
 .plate{
   border:1px solid var(--rule); padding:clamp(26px,3vw,38px);
   background:var(--paper); position:relative;
