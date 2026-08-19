@@ -112,9 +112,7 @@ section[id]{ scroll-margin-top:80px; }
 }
 .hero-body{ margin-top:-26%; padding-inline:22%; text-align:center; position:relative; }
 .hero-body h1{ margin-bottom:22px; font-size:clamp(1.2rem,2.1vw,1.8rem); }
-.hero-name{ font-family:var(--display); font-size:clamp(.8rem,1.5vw,.95rem); letter-spacing:.34em;
-  text-transform:uppercase; color:var(--ink-mid); margin:0 0 10px; }
-.hero-role{ font-size:.66rem; letter-spacing:.26em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 34px; }
+.hero-role{ font-size:.7rem; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 30px; }
 .hero-sub{ font-size:clamp(.95rem,1.4vw,1.08rem); color:var(--ink-mid); max-width:46ch; margin:0 auto 34px; line-height:1.8; }
 .hero-services{ margin-top:46px; font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); line-height:2.2; }
 @media (max-width:860px){
